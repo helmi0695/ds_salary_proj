@@ -38,15 +38,28 @@ df['same_state'] = df.apply(lambda x: 1 if x.Location == x.Headquarters else 0, 
 df['age'] = df.Founded.apply(lambda x: 2020-x if x != -1 else x)
 
 
-# parse the job description (data sc tools: python, Rstudio...)
+# parse the job description (data sc tools: python, Rstudio,aws...)
+df['python_yn'] = df['Job Description'].apply(lambda x: 1 if 'python' in x.lower() else 0 )
+df['python_yn'].value_counts()
 
+df['R_yn'] = df['Job Description'].apply(lambda x: 1 if 'r studio' in x.lower() or 'r-studio' in x.lower() else 0)
+df.R_yn.value_counts()
 
+#spark 
+df['spark'] = df['Job Description'].apply(lambda x: 1 if 'spark' in x.lower() else 0)
+df.spark.value_counts()
 
+#aws 
+df['aws'] = df['Job Description'].apply(lambda x: 1 if 'aws' in x.lower() else 0)
+df.aws.value_counts()
 
-# create a column to see if the location is the same as the HQ
-# clean the size
-#column to see the age of the company
-# clean the revenu
+#excel
+df['excel'] = df['Job Description'].apply(lambda x: 1 if 'excel' in x.lower() else 0)
+df.excel.value_counts()
+
+df_out = df.drop(['Unnamed: 0'], axis =1)
+
+df_out.to_csv('salary_data_cleaned.csv',index = False)
 
 
 
