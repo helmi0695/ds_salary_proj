@@ -107,5 +107,19 @@ mean_absolute_error(y_test,tpred_rf)
 mean_absolute_error(y_test,(tpred_lm+tpred_rf)/2)
 # Nope >>> we can improve it by running it through a regression model >> get weights >> exp 90% of rf and 10%of lm would give better results
 
+# productionize
+import pickle
+pickl = {'model': gs.best_estimator_}
+pickle.dump( pickl, open( 'model_file' + ".p", "wb" ) )
 
+file_name = "model_file.p"
+with open(file_name, 'rb') as pickled:
+    data = pickle.load(pickled)
+    model = data['model']
+
+model.predict(X_test.iloc[1,:].values.reshape(1,-1))
+# model.predict(np.array(list(X_test.iloc[1,:])).reshape(1,-1))[0]
+
+# sample data to test the model on (FLASK step)
+list(X_test.iloc[1,:])
 
