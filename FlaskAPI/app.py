@@ -21,7 +21,7 @@ def predict():
     request_json = request.get_json()
     # x = np.array(data_in).reshape(1,-1) ##instead of x_in
     x = request_json['input']
-    #print(x)
+    # print(x)
     x_in = np.array(x).reshape(1,-1)
     # load model
     model = load_models()
